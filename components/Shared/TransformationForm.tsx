@@ -146,11 +146,10 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
             }
         }))
 
-        return onChangeField(value)
-    }, 1000)
-  }
+    }, 1000)();
 
-  // TODO: make credit fee more dynamic
+    return onChangeField(value)
+  }
 
   const onTransformHandler = async () => {
     setIsTransforming(true)
@@ -193,6 +192,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
                 render={({ field }) => (
                     <Select 
                         onValueChange={(value) => onSelectFieldHandler(value, field.onChange)}
+                        value={field.value}
                     >
                         <SelectTrigger className="select-field">
                             <SelectValue placeholder="Select size" />
@@ -218,7 +218,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
                         type === 'remove' ? 'Object to remove' : 'Object to recolor'
                     }
                     className="w-full"
-                    render={(({ field }) => (
+                    render={({ field }) => (
                         <Input 
                             value={field.value}
                             className="input-field"
@@ -226,7 +226,7 @@ const TransformationForm = ({ action, data = null, userId, type, creditBalance, 
                                 'prompt', e.target.value, type, field.onChange
                             )}
                         />
-                    ))}
+                    )}
                 />
 
                 {type === 'recolor' && (
